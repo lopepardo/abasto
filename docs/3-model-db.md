@@ -2,14 +2,14 @@
 
 ## Diseño
 
-El modelo representa los productos, compradores, pedidos e inventario de cada distribuidora, junto con los empleados autorizados y las acciones que realizan. La interpretación se apoya también en la [definición del proyecto](definition.md).
+El modelo representa los productos, compradores, pedidos e inventario de cada distribuidora, junto con los empleados autorizados y las acciones que realizan. La interpretación se apoya también en la [definición del proyecto](1-definition.md).
 
 El diagrama conceptual tiene **ocho entidades**: seis con identificador propio y dos que dependen de otras para identificarse (`EMPLOYEE` e `INVENTORY_BALANCE`). Las identificaciones de la tabla se obtienen de los atributos y las relaciones del diagrama.
 
 | Entidad                                     | Identificación              | Qué representa y qué datos guarda                                                                                                                                                                                                |
 | ------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Empresa (`COMPANY`)                         | `company_id`                | Distribuidora que utiliza Abasto. Guarda su nombre (`name`).                                                                                                                                                                     |
-| Empleado (`EMPLOYEE`)                       | `(company_id, employee_id)` | Persona autorizada dentro de una empresa. Guarda las referencias de identidad (`sender_identity`, `subject_identity`), su estado (`state`) y sus permisos (`permissions`).                                                       |
+| Empleado (`EMPLOYEE`)                       | `(company_id, employee_id)` | Persona autorizada dentro de una empresa. Guarda las referencias de identidad (`issuer_identity`, `subject_identity`), su estado (`state`) y sus permisos (`permissions`).                                                       |
 | Comprador (`BUYER`)                         | `buyer_id`                  | Restaurante atendido por una distribuidora. Guarda su nombre (`name`).                                                                                                                                                           |
 | Producto (`PRODUCT`)                        | `product_id`                | Referencia del catálogo de una distribuidora. Guarda su nombre (`name`) y unidad de manejo (`unit`), por ejemplo, cajas o bolsas.                                                                                                |
 | Pedido (`ORDER`)                            | `order_id`                  | Compra solicitada por un comprador y registrada por un empleado. Guarda su estado (`status`).                                                                                                                                    |
@@ -38,6 +38,7 @@ Las cardinalidades `(mínimo, máximo)` indican cuántos vínculos puede tener c
 
 - **Datos separados por empresa.** Compradores, productos y empleados pertenecen a una distribuidora. Los pedidos, operaciones y movimientos se vinculan a ella mediante sus relaciones. Todos los participantes de una misma acción deben corresponder a esa empresa.
 - **Empleado identificado dentro de su empresa.** `employee_id` es una clave parcial: puede repetirse entre distribuidoras, pero la combinación `(company_id, employee_id)` identifica un único empleado autorizado. Los permisos se asignan por acción y se representan como un atributo multivaluado, porque un empleado puede tener varios.
+- **Una pertenencia por identidad y empresa.** `issuer_identity` identifica al emisor de la identidad y `subject_identity` a la cuenta dentro de ese emisor. Ambos son obligatorios. La combinación `(company_id, issuer_identity, subject_identity)` es única y se representa como `UQ1` en `EMPLOYEE` en el modelo lógico. Una identidad puede pertenecer a varias distribuidoras, con un único registro de empleado en cada una y con estado y permisos propios por empresa.
 - **Productos de un pedido.** `INCLUDES` es una relación N:M entre `ORDER` y `PRODUCT`. Cada combinación pedido–producto aparece una sola vez y tiene su propia cantidad (`quantity`), que debe ser positiva y válida para la unidad del producto. La cantidad pertenece al vínculo: el mismo producto puede pedirse en cantidades distintas en cada pedido.
 - **Saldo dependiente.** `INVENTORY_BALANCE` comparte la identificación de su producto y existe una sola vez por producto. No tiene identificador propio.
 - **Reservas calculadas.** `reserved_quantity` suma las cantidades de ese producto en pedidos confirmados (`CONFIRMED`). `available_quantity = stock_on_hand − reserved_quantity`. Las reservas nunca deben superar las existencias físicas; las entradas y los ajustes deben conservar esa regla. Si dos pedidos compiten por la última unidad, solo uno puede confirmarse.
@@ -51,3 +52,7 @@ Por ejemplo, con diez cajas físicas, confirmar un pedido de dos deja **diez fí
 ### Modelo conceptual (Chen)
 
 [Modelo conceptual en notación Chen extendida](diagrams/chen-model-db.drawio).
+
+### Modelo lógico (relacional)
+
+[Modelo lógico relacional](diagrams/logic-model-db.drawio).

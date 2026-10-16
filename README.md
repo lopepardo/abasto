@@ -31,8 +31,8 @@ El proyecto está en etapa de definición y diseño. Esta lista reúne la docume
 - [x] [Definición del proyecto](docs/1-definition.md): problema, usuarios y comportamiento esperado.
 - [x] [DDD estratégico](docs/2-strategic-ddd.md): lenguaje del negocio, responsabilidades y reglas principales.
 - [x] [Modelo conceptual de base de datos](docs/3-model-db.md): entidades, relaciones y decisiones del modelo.
-- [x] [Diagrama conceptual](docs/diagrams/chen-model-db.drawio): representación del modelo en formato editable de draw.io.
-- [ ] **Diagrama relacional:** traducir el modelo conceptual a tablas, claves y relaciones.
+- [x] [Diagrama conceptual](docs/diagrams/chen-model-db.drawio): representación del modelo conceptual a entidades, relaciones y decisiones.
+- [x] [Diagrama relacional](docs/diagrams/logic-model-db.drawio): representación del modelo relacional a tablas, claves y relaciones.
 - [ ] **Esquema de base de datos:** definir las tablas, restricciones e índices en PostgreSQL.
 - [ ] **Decisiones técnicas:** elegir las tecnologías y definir la estructura de la aplicación, documentando el motivo de cada elección.
 - [ ] **Entorno de desarrollo:** preparar la configuración y las instrucciones para ejecutar el proyecto localmente.
