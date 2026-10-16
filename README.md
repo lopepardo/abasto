@@ -14,3 +14,12 @@ Durante ese recorrido se trabajará en:
 - Desarrollo y pruebas de las reglas del negocio.
 - Infraestructura y despliegue en la nube.
 - Uso de IA como apoyo para analizar, diseñar y generar código, revisando y comprendiendo sus propuestas.
+
+## Alcance inicial
+
+- Gestionar productos y compradores de cada distribuidora.
+- Registrar existencias, entradas y ajustes de inventario.
+- Confirmar pedidos reservando toda la mercancía solicitada.
+- Cancelar pedidos para liberar reservas o despacharlos para registrar su salida.
+
+La regla central es sencilla: **solo se puede prometer mercancía disponible**. Cada distribuidora debe trabajar con sus propios datos y con empleados autorizados para cada acción.
